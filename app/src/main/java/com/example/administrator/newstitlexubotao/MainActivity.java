@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.newstitlexubotao.fragment.LinkMan_Fragment;
@@ -19,11 +20,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends FragmentActivity  implements View.OnClickListener{
-    private List<TextView> textViewList=new ArrayList<>();
+    private List<LinearLayout> linearLayoutList=new ArrayList<>();
     private TextView message;
     private TextView linkman;
     private TextView space;
     private TextView mine;
+    private LinearLayout lmessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,22 +35,26 @@ public class MainActivity extends FragmentActivity  implements View.OnClickListe
         //初次页面
         addFragment(new Message_Fragment());
         message.setTextColor(Color.RED);
-
     }
     //布局控件
     public void inflateView() {
         //得到控件
+        lmessage = (LinearLayout) findViewById(R.id.llmessage);
+        LinearLayout llinkman= (LinearLayout) findViewById(R.id.lllinkman);
+        LinearLayout lspace= (LinearLayout) findViewById(R.id.llspace);
+        LinearLayout lmine= (LinearLayout) findViewById(R.id.llmine);
         message = (TextView) findViewById(R.id.message);
         linkman = (TextView) findViewById(R.id.linkman);
         space = (TextView) findViewById(R.id.space);
         mine = (TextView) findViewById(R.id.mine);
-        textViewList.add(message);
-        textViewList.add(linkman);
-        textViewList.add(space);
-        textViewList.add(mine);
-        for(TextView tv:textViewList)
+
+        linearLayoutList.add(lmessage);
+        linearLayoutList.add(llinkman);
+        linearLayoutList.add(lspace);
+        linearLayoutList.add(lmine);
+        for(LinearLayout lll:linearLayoutList)
         {
-            tv.setOnClickListener(this);
+            lll.setOnClickListener(this);
         }
     }
     //添加fragment布局
@@ -65,28 +71,28 @@ public class MainActivity extends FragmentActivity  implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId())
         {
-            case R.id.message :
+            case R.id.llmessage :
                 addFragment(new Message_Fragment());
                 message.setTextColor(Color.RED);
                 linkman.setTextColor(Color.BLACK);
                 space.setTextColor(Color.BLACK);
                 mine.setTextColor(Color.BLACK);
                 break;
-            case R.id.linkman :
+            case R.id.lllinkman :
                 addFragment(new LinkMan_Fragment());
                 linkman.setTextColor(Color.RED);
                 message.setTextColor(Color.BLACK);
                 space.setTextColor(Color.BLACK);
                 mine.setTextColor(Color.BLACK);
                 break;
-            case R.id.space :
+            case R.id.llspace :
                 addFragment(new Space_Fragment());
                 space.setTextColor(Color.RED);
                 linkman.setTextColor(Color.BLACK);
                 message.setTextColor(Color.BLACK);
                 mine.setTextColor(Color.BLACK);
                 break;
-            case R.id.mine :
+            case R.id.llmine :
                 addFragment(new Mine_Fragment());
                 mine.setTextColor(Color.RED);
                 linkman.setTextColor(Color.BLACK);

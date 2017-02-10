@@ -8,42 +8,78 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="#d2f470"
         android:orientation="horizontal">
-        <TextView
-            android:id="@+id/message"
+        <LinearLayout
+                android:id="@+id/llmessage"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/wait_evaluate"/>
+                <TextView
+                android:id="@+id/message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="消息"/>
+        </LinearLayout>
+        <LinearLayout
+                android:id="@+id/lllinkman"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/wait_pay"/>
+                <TextView
+                    android:id="@+id/linkman"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系人"/>
+         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llspace"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:layout_height="wrap_content"
-            android:text="消息"/>
-        <TextView
-            android:id="@+id/linkman"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/wait_refund"/>
+            <TextView
+                android:id="@+id/space"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="动态"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llmine"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:layout_height="wrap_content"
-            android:text="联系人"/>
-        <TextView
-            android:id="@+id/space"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:text="动态"/>
-        <TextView
-            android:id="@+id/mine"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:text="我的"/>
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bottom_tab_user_update"/>
+            <TextView
+                android:id="@+id/mine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的"/>
+        </LinearLayout>
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/framelayout"
         android:layout_above="@id/linearlayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
+        android:layout_height="match_parent"></FrameLayout>
 </RelativeLayout>
