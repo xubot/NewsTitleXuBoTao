@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,7 +26,10 @@ public class MainActivity extends FragmentActivity  implements View.OnClickListe
     private TextView linkman;
     private TextView space;
     private TextView mine;
-    private LinearLayout lmessage;
+    private ImageView imagemessage;
+    private ImageView imagelinkman;
+    private ImageView imagespace;
+    private ImageView imagemine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +43,7 @@ public class MainActivity extends FragmentActivity  implements View.OnClickListe
     //布局控件
     public void inflateView() {
         //得到控件
-        lmessage = (LinearLayout) findViewById(R.id.llmessage);
+        LinearLayout lmessage= (LinearLayout) findViewById(R.id.llmessage);
         LinearLayout llinkman= (LinearLayout) findViewById(R.id.lllinkman);
         LinearLayout lspace= (LinearLayout) findViewById(R.id.llspace);
         LinearLayout lmine= (LinearLayout) findViewById(R.id.llmine);
@@ -47,7 +51,10 @@ public class MainActivity extends FragmentActivity  implements View.OnClickListe
         linkman = (TextView) findViewById(R.id.linkman);
         space = (TextView) findViewById(R.id.space);
         mine = (TextView) findViewById(R.id.mine);
-
+        imagemessage = (ImageView) findViewById(R.id.imagemessage);
+        imagelinkman = (ImageView) findViewById(R.id.imagelinkman);
+        imagespace = (ImageView) findViewById(R.id.imagespace);
+        imagemine = (ImageView) findViewById(R.id.imagemine);
         linearLayoutList.add(lmessage);
         linearLayoutList.add(llinkman);
         linearLayoutList.add(lspace);
@@ -77,6 +84,10 @@ public class MainActivity extends FragmentActivity  implements View.OnClickListe
                 linkman.setTextColor(Color.BLACK);
                 space.setTextColor(Color.BLACK);
                 mine.setTextColor(Color.BLACK);
+                imagemessage.setImageResource(R.drawable.my_lottery_icon);
+                imagelinkman.setImageResource(R.drawable.wait_pay);
+                imagespace.setImageResource(R.drawable.wait_refund);
+                imagemine.setImageResource(R.drawable.bottom_tab_user_update);
                 break;
             case R.id.lllinkman :
                 addFragment(new LinkMan_Fragment());
@@ -84,6 +95,10 @@ public class MainActivity extends FragmentActivity  implements View.OnClickListe
                 message.setTextColor(Color.BLACK);
                 space.setTextColor(Color.BLACK);
                 mine.setTextColor(Color.BLACK);
+                imagemessage.setImageResource(R.drawable.wait_evaluate);
+                imagelinkman.setImageResource(R.drawable.public_contact_service_icon);
+                imagespace.setImageResource(R.drawable.wait_refund);
+                imagemine.setImageResource(R.drawable.bottom_tab_user_update);
                 break;
             case R.id.llspace :
                 addFragment(new Space_Fragment());
@@ -91,6 +106,10 @@ public class MainActivity extends FragmentActivity  implements View.OnClickListe
                 linkman.setTextColor(Color.BLACK);
                 message.setTextColor(Color.BLACK);
                 mine.setTextColor(Color.BLACK);
+                imagemessage.setImageResource(R.drawable.wait_evaluate);
+                imagelinkman.setImageResource(R.drawable.wait_pay);
+                imagespace.setImageResource(R.drawable.my_collection_icon);
+                imagemine.setImageResource(R.drawable.bottom_tab_user_update);
                 break;
             case R.id.llmine :
                 addFragment(new Mine_Fragment());
@@ -98,6 +117,10 @@ public class MainActivity extends FragmentActivity  implements View.OnClickListe
                 linkman.setTextColor(Color.BLACK);
                 space.setTextColor(Color.BLACK);
                 message.setTextColor(Color.BLACK);
+                imagemessage.setImageResource(R.drawable.wait_evaluate);
+                imagelinkman.setImageResource(R.drawable.wait_pay);
+                imagespace.setImageResource(R.drawable.wait_refund);
+                imagemine.setImageResource(R.drawable.bottom_tab_user_selected);
                 break;
         }
     }

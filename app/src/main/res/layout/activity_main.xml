@@ -17,7 +17,11 @@
                 android:gravity="center"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/wait_evaluate"/>
+                <ImageView
+                    android:id="@+id/imagemessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/wait_evaluate"/>
                 <TextView
                 android:id="@+id/message"
                 android:layout_width="wrap_content"
@@ -32,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <ImageView
+                    android:id="@+id/imagelinkman"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/wait_pay"/>
@@ -49,6 +54,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageView
+                android:id="@+id/imagespace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/wait_refund"/>
@@ -66,6 +72,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageView
+                android:id="@+id/imagemine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/bottom_tab_user_update"/>
