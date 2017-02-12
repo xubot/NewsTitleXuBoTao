@@ -34,8 +34,9 @@ public class Message_titleAdater extends FragmentPagerAdapter{
     public int getCount() {
         return fragmentList.size();
     }
-    public CharSequence getCharSequence(int position)
-    {
+
+    @Override
+    public CharSequence getPageTitle(int position) {
         return titleArr[position];
     }
 }
