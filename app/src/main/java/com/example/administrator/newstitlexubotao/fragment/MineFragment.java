@@ -13,7 +13,7 @@ import com.example.administrator.newstitlexubotao.R;
  * Created by Administrator on 2017/2/10.
  */
 
-public class Mine_Fragment extends Fragment {
+public class MineFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

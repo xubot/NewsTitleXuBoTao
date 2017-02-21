@@ -28,4 +28,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:25.1.0'
     compile 'org.xutils:xutils:3.3.40'
+    compile files('libs/gson-2.2.4.jar')
+    compile 'fm.jiecao:jiecaovideoplayer:2.0'
+    compile files('libs/universal-image-loader-1.9.3-with-sources.jar')
+    compile project(':library')
+    compile project(':PushSDK')
 }

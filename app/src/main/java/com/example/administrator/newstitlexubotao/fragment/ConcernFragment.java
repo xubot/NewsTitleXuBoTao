@@ -13,11 +13,11 @@ import com.example.administrator.newstitlexubotao.R;
  * Created by Administrator on 2017/2/10.
  */
 
-public class LinkMan_Fragment extends Fragment {
+public class ConcernFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View inflate = inflater.inflate(R.layout.linkman_fragment, null);
+        View inflate = inflater.inflate(R.layout.concern_fragment, null);
         return inflate;
     }
 }
