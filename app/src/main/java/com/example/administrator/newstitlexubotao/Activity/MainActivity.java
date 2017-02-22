@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,10 +43,18 @@ public class MainActivity extends FragmentActivity  implements View.OnClickListe
     private MineFragment mineFragment;
     private  Fragment fragment;
     private Boolean flag;
+    // 默认是日间模式
+    private int theme = R.style.AppTheme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 判断是否有主题存储
+        if(savedInstanceState != null){
+            theme = savedInstanceState.getInt("theme");
+            setTheme(theme);
+
+        }
 
         setContentView(R.layout.activity_main);
         inflateView();
@@ -157,6 +166,8 @@ public class MainActivity extends FragmentActivity  implements View.OnClickListe
                         videoFragment =new VideoFragment();
                     }
                     addFragment(videoFragment);
+                   /* theme = (theme == R.style.AppTheme) ? R.style.NightAppTheme : R.style.AppTheme;
+                    MainActivity.this.recreate();*/
                 }
                 else
                 {
@@ -166,23 +177,39 @@ public class MainActivity extends FragmentActivity  implements View.OnClickListe
                 setBackground(1);
                 break;
             case R.id.llspace :
-                if (concernFragment==null){
-                    concernFragment =new ConcernFragment();
+                if(flag) {
+                    if (concernFragment == null) {
+                        concernFragment = new ConcernFragment();
+                    }
+                    addFragment(concernFragment);
+                    /*theme = (theme == R.style.AppTheme) ? R.style.NightAppTheme : R.style.AppTheme;
+                    MainActivity.this.recreate();*/
                 }
-                addFragment(concernFragment);
+                else {
+                    addFragment(new NetworkInfo());
+                }
                 JCVideoPlayer.releaseAllVideos();
                 setBackground(2);
                 break;
             case R.id.llmine :
-                if (mineFragment==null){
-                    mineFragment =new MineFragment();
+                if(flag) {
+                    if (mineFragment == null) {
+                        mineFragment = new MineFragment();
+                    }
+                    addFragment(mineFragment);
+                   /* theme = (theme == R.style.AppTheme) ? R.style.NightAppTheme : R.style.AppTheme;
+                    MainActivity.this.recreate();*/
                 }
-                addFragment(mineFragment);
+                else
+                {
+                    addFragment(new NetworkInfo());
+                }
                 JCVideoPlayer.releaseAllVideos();
                 setBackground(3);
                 break;
         }
     }
+
     //设置颜色（点击时）
     public void setBackground(int index) {
         for(int i=0;i<linearLayoutList.size();i++)
@@ -198,5 +225,35 @@ public class MainActivity extends FragmentActivity  implements View.OnClickListe
                 textViewList.get(i).setTextColor(Color.BLACK);
             }
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("theme", theme);
+    }
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        theme = savedInstanceState.getInt("theme");
+    }
+
+    //再按退出
+    private long exitTime = 0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() ==
+                KeyEvent.ACTION_DOWN){
+            if((System.currentTimeMillis()-exitTime) > 2000){
+                Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                        Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
