@@ -1,32 +1,45 @@
 package com.example.administrator.newstitlexubotao.Activity;
 
+import android.app.Application;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.newstitlexubotao.R;
+import com.example.administrator.newstitlexubotao.Uilt.ApplicationData;
 import com.example.administrator.newstitlexubotao.Uilt.Connectivity;
+import com.example.administrator.newstitlexubotao.Uilt.EventbusData;
+import com.example.administrator.newstitlexubotao.Uilt.ThemeManager;
 import com.example.administrator.newstitlexubotao.fragment.NetworkInfo;
 import com.example.administrator.newstitlexubotao.fragment.VideoFragment;
 import com.example.administrator.newstitlexubotao.fragment.HomeFragment;
 import com.example.administrator.newstitlexubotao.fragment.MineFragment;
 import com.example.administrator.newstitlexubotao.fragment.ConcernFragment;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
-public class MainActivity extends FragmentActivity  implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity  implements View.OnClickListener,ThemeManager.OnThemeChangeListener{
     private List<LinearLayout> linearLayoutList=new ArrayList<>();
     private List<ImageView> imageViewList=new ArrayList<>();
     private List<TextView> textViewList=new ArrayList<>();
@@ -43,38 +56,40 @@ public class MainActivity extends FragmentActivity  implements View.OnClickListe
     private MineFragment mineFragment;
     private  Fragment fragment;
     private Boolean flag;
-    // 默认是日间模式
-    private int theme = R.style.AppTheme;
+    private ActionBar supportActionBar;
+    private RelativeLayout rlt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 判断是否有主题存储
-        if(savedInstanceState != null){
-            theme = savedInstanceState.getInt("theme");
-            setTheme(theme);
-
-        }
-
         setContentView(R.layout.activity_main);
+        //注册eventBus
+        ThemeManager.registerThemeChangeListener(this);
+        supportActionBar = getSupportActionBar();
+        EventBus.getDefault().register(this);
+
         inflateView();
         //得到网络类
         flag = Connectivity.connectivity(this);
-        if(flag)
+        if(ApplicationData.flag)
         {
-            //初次页面
-            if (homeFragment==null){
-                homeFragment =new HomeFragment();
+            if(flag)
+            {
+                //初次页面
+                if (homeFragment==null){
+                    homeFragment =new HomeFragment();
+                }
+                addFragment(homeFragment);
+                setBackground(0);
+                ApplicationData.flag=false;
             }
-            addFragment(homeFragment);
-            setBackground(0);
+            else
+            {
+                addFragment(new NetworkInfo());
+            }
         }
-        else
-        {
-            addFragment(new NetworkInfo());
-        }
-    }
 
+    }
     //布局控件
     public void inflateView() {
         //得到控件(LinearLayout的控件)
@@ -166,8 +181,6 @@ public class MainActivity extends FragmentActivity  implements View.OnClickListe
                         videoFragment =new VideoFragment();
                     }
                     addFragment(videoFragment);
-                   /* theme = (theme == R.style.AppTheme) ? R.style.NightAppTheme : R.style.AppTheme;
-                    MainActivity.this.recreate();*/
                 }
                 else
                 {
@@ -177,33 +190,18 @@ public class MainActivity extends FragmentActivity  implements View.OnClickListe
                 setBackground(1);
                 break;
             case R.id.llspace :
-                if(flag) {
-                    if (concernFragment == null) {
-                        concernFragment = new ConcernFragment();
-                    }
+                if (concernFragment == null) {
+                    concernFragment = new ConcernFragment();
+                }
                     addFragment(concernFragment);
-                    /*theme = (theme == R.style.AppTheme) ? R.style.NightAppTheme : R.style.AppTheme;
-                    MainActivity.this.recreate();*/
-                }
-                else {
-                    addFragment(new NetworkInfo());
-                }
                 JCVideoPlayer.releaseAllVideos();
                 setBackground(2);
                 break;
             case R.id.llmine :
-                if(flag) {
-                    if (mineFragment == null) {
-                        mineFragment = new MineFragment();
-                    }
-                    addFragment(mineFragment);
-                   /* theme = (theme == R.style.AppTheme) ? R.style.NightAppTheme : R.style.AppTheme;
-                    MainActivity.this.recreate();*/
+                if (mineFragment == null) {
+                    mineFragment = new MineFragment();
                 }
-                else
-                {
-                    addFragment(new NetworkInfo());
-                }
+                addFragment(mineFragment);
                 JCVideoPlayer.releaseAllVideos();
                 setBackground(3);
                 break;
@@ -227,17 +225,6 @@ public class MainActivity extends FragmentActivity  implements View.OnClickListe
         }
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("theme", theme);
-    }
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        theme = savedInstanceState.getInt("theme");
-    }
-
     //再按退出
     private long exitTime = 0;
     @Override
@@ -255,5 +242,47 @@ public class MainActivity extends FragmentActivity  implements View.OnClickListe
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+
+
+
+    //得到minefragment的控件
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getEvents(EventbusData ev) {
+        rlt = (RelativeLayout) findViewById(R.id.activity_main);
+        LinearLayout nightBack = ev.getNightBack();
+        //设置监听
+        nightBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ThemeManager.setThemeMode(ThemeManager.getThemeMode() == ThemeManager.ThemeMode.DAY ? ThemeManager.ThemeMode.NIGHT : ThemeManager.ThemeMode.DAY);
+            }
+        });
+    }
+
+    //关于夜间模式
+    public void initTheme() {
+        rlt.setBackgroundColor(getResources().getColor(ThemeManager.getCurrentThemeRes(MainActivity.this, R.color.backgroundColor)));
+        // 设置标题栏颜色
+        if (supportActionBar != null) {
+            supportActionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(ThemeManager.getCurrentThemeRes(MainActivity.this, R.color.colorPrimary))));
+        }
+        // 设置状态栏颜色
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.setStatusBarColor(getResources().getColor(ThemeManager.getCurrentThemeRes(MainActivity.this, R.color.colorPrimary)));
+        }
+    }
+
+    @Override
+    public void onThemeChanged() {
+        initTheme();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ThemeManager.unregisterThemeChangeListener(this);
     }
 }

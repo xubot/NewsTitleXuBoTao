@@ -26,14 +26,27 @@
             android:background="@drawable/s"
             android:hint="请输入内容"/>
     </LinearLayout>
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tablayout"
+    <LinearLayout
+        android:id="@+id/linearTab"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
-        app:tabIndicatorColor="#00000000"
-        app:tabTextColor="#000"
-        app:tabSelectedTextColor="#f00">
-    </android.support.design.widget.TabLayout>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tablayout"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="9"
+            app:tabIndicatorColor="#00000000"
+            app:tabTextColor="#000"
+            app:tabSelectedTextColor="#f00">
+        </android.support.design.widget.TabLayout>
+        <ImageView
+            android:id="@+id/titlbar"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="35dp"
+            android:src="@drawable/add_channel_titlbar_new"/>
+    </LinearLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"

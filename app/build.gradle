@@ -35,4 +35,5 @@ dependencies {
     compile project(':PushSDK')
     compile files('libs/open_sdk_r5781.jar')
     compile files('libs/mta-sdk-1.6.2.jar')
+    compile 'org.greenrobot:eventbus:3.0.0'
 }

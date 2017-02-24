@@ -2,8 +2,10 @@ package com.example.administrator.newstitlexubotao.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +14,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.administrator.newstitlexubotao.Activity.MainActivity;
 import com.example.administrator.newstitlexubotao.R;
+import com.example.administrator.newstitlexubotao.Uilt.EventbusData;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.auth.QQToken;
 import com.tencent.connect.common.Constants;
@@ -20,6 +24,7 @@ import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,18 +39,23 @@ public class MineFragment extends Fragment {
     private BaseUiListener mIUiListener;
     private UserInfo mUserInfo;
     private ImageView img;
+    private MainActivity mainActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
         View inflate = inflater.inflate(R.layout.mine_fragment, null);
         //传入参数APPID和全局Context上下文
         mTencent = Tencent.createInstance(APP_ID,getActivity().getApplicationContext());
+        mainActivity = (MainActivity) getActivity();
         initView(inflate);
         return inflate;
     }
 
     private void initView(View inflate) {
         img = (ImageView) inflate.findViewById(R.id.imageqq);
+
+        LinearLayout linearLayout= (LinearLayout) inflate.findViewById(R.id.linearNight);
+
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +67,8 @@ public class MineFragment extends Fragment {
                 mTencent.login(getActivity(),"all", mIUiListener);
             }
         });
+
+        EventBus.getDefault().post(new EventbusData(linearLayout));
     }
 
     /**

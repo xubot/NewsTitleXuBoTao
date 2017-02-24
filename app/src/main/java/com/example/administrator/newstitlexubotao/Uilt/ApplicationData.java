@@ -1,6 +1,7 @@
 package com.example.administrator.newstitlexubotao.Uilt;
 
 import android.app.Application;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -15,8 +16,10 @@ import org.xutils.x;
  */
 
 public class ApplicationData extends Application{
+    public   static  boolean flag;
     @Override
     public void onCreate() {
+        flag=true;
         //初始化xutils
         x.Ext.init(this);
         ImageLoaderConfiguration build = new ImageLoaderConfiguration.Builder(this).build();
@@ -37,5 +40,7 @@ public class ApplicationData extends Application{
 
             }
         });
+        // 默认设置为日间模式
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
 }
