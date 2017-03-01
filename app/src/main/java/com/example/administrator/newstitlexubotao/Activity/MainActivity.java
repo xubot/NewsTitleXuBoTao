@@ -224,7 +224,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
             }
         }
     }
-
     //再按退出
     private long exitTime = 0;
     @Override

@@ -1,5 +1,6 @@
 package com.example.administrator.newstitlexubotao.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -7,7 +8,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.example.administrator.newstitlexubotao.Activity.ChannelActivity;
 import com.example.administrator.newstitlexubotao.Adater.HomeTitleAdater;
 import com.example.administrator.newstitlexubotao.R;
 
@@ -26,6 +29,7 @@ public class HomeFragment extends Fragment{
     private TabLayout tabLayout;
     private ViewPager viewPage;
     private HomeTitleAdater homeTitleAdater;
+    private ImageView titlbar;
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
@@ -33,6 +37,15 @@ public class HomeFragment extends Fragment{
         //得到控件
         tabLayout = (TabLayout) inflate.findViewById(R.id.tablayout);
         viewPage = (ViewPager) inflate.findViewById(R.id.viewpager);
+
+        titlbar = (ImageView) inflate.findViewById(R.id.titlbar);
+        titlbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),ChannelActivity.class));
+            }
+        });
+
         //将fragment存入集合中
         inflateData();
         //将fragment添加给viewpager
@@ -44,6 +57,7 @@ public class HomeFragment extends Fragment{
         viewPage.setOffscreenPageLimit(3);
         //设置标题的显示模式
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+
         return inflate;
     }
 

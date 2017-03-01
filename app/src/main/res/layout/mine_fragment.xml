@@ -3,11 +3,10 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="120dp"
         android:orientation="horizontal"
         android:background="#000">
         <ImageView
@@ -43,6 +42,14 @@
             android:src="@drawable/arrow_all_normal"/>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv"
+        android:gravity="center"
+        android:background="#000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:text="请登录"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
