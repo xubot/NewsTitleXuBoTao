@@ -1,1 +1,2 @@
 include ':app', ':library', ':PushSDK', ':channelManger'
+include ':slidingmenu_library'

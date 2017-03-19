@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.example.administrator.newstitlexubotao.Activity.ChannelActivity;
 import com.example.administrator.newstitlexubotao.Adater.HomeTitleAdater;
 import com.example.administrator.newstitlexubotao.R;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,28 @@ public class HomeFragment extends Fragment{
         //得到控件
         tabLayout = (TabLayout) inflate.findViewById(R.id.tablayout);
         viewPage = (ViewPager) inflate.findViewById(R.id.viewpager);
+        ImageView img= (ImageView) inflate.findViewById(R.id.img);
+
+        final SlidingMenu menu = new SlidingMenu(getActivity());
+        menu.setMode(SlidingMenu.LEFT);
+        // 设置触摸屏幕的模式
+        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        menu.setShadowWidthRes(R.dimen.shadow_width);
+        // 设置滑动菜单视图的宽度
+        menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+        // 设置渐入渐出效果的值
+        menu.setFadeDegree(0.35f);
+        menu.attachToActivity(getActivity(), SlidingMenu.SLIDING_CONTENT);
+        //为侧滑菜单设置布局
+        menu.setMenu(R.layout.left_menu);
+
+        //点击弹出侧滑页
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menu.toggle();
+            }
+        });
 
         titlbar = (ImageView) inflate.findViewById(R.id.titlbar);
         titlbar.setOnClickListener(new View.OnClickListener() {
@@ -57,10 +80,8 @@ public class HomeFragment extends Fragment{
         viewPage.setOffscreenPageLimit(3);
         //设置标题的显示模式
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-
         return inflate;
     }
-
     public void inflateData() {
         for (int i=0;i<titleArr.length;i++)
         {

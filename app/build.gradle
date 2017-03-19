@@ -45,6 +45,7 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile files('libs/MobCommons-2016.1201.1839.jar')
     compile files('libs/MobTools-2016.1201.1839.jar')
-
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
+    compile project(':channelManger')
+    compile project(':slidingmenu_library')
 }
