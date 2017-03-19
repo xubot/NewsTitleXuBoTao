@@ -1,12 +1,14 @@
 package com.example.administrator.newstitlexubotao.Adater;
 
 
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.administrator.newstitlexubotao.Bean.HomeMagessBean;
@@ -62,6 +64,12 @@ public class HomeMessageAdater extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        final View view = View.inflate(activity, R.layout.popupwindow, null);
+        //得到popupwindow的对象
+        final PopupWindow popupWindow = new PopupWindow(view, 50, 20);
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(0));
+
         MyView2 myView2=null;
         MyView3 myView3=null;
         if(convertView==null)
@@ -76,6 +84,14 @@ public class HomeMessageAdater extends BaseAdapter {
                 myView3.img1= (ImageView) convertView.findViewById(R.id.imageView1);
                 myView3.img2= (ImageView) convertView.findViewById(R.id.imageView2);
                 myView3.img3= (ImageView) convertView.findViewById(R.id.imageView3);
+                myView3.close2= (ImageView) convertView.findViewById(R.id.close2);
+                //点击弹出对话框
+                myView3.close2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popupWindow.showAsDropDown(v);
+                    }
+                });
                 convertView.setTag(myView3);
             }
             else
@@ -86,6 +102,14 @@ public class HomeMessageAdater extends BaseAdapter {
                 myView2.source= (TextView) convertView.findViewById(R.id.source);
                 myView2.time= (TextView) convertView.findViewById(R.id.time);
                 myView2.img= (ImageView) convertView.findViewById(R.id.imageView);
+                myView2.close1= (ImageView) convertView.findViewById(R.id.close1);
+                //点击弹出对话框
+                myView2.close1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popupWindow.showAsDropDown(v);
+                    }
+                });
                 convertView.setTag(myView2);
             }
         }
@@ -147,6 +171,7 @@ public class HomeMessageAdater extends BaseAdapter {
         ImageView img;
         TextView source;
         TextView time;
+        ImageView close1;
     }
     class MyView3 {
         TextView title;
@@ -155,5 +180,6 @@ public class HomeMessageAdater extends BaseAdapter {
         ImageView img3;
         TextView source;
         TextView time;
+        ImageView close2;
     }
 }

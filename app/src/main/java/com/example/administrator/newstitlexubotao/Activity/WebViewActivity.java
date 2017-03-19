@@ -2,7 +2,6 @@ package com.example.administrator.newstitlexubotao.Activity;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -11,9 +10,6 @@ import android.widget.Toast;
 
 import com.example.administrator.newstitlexubotao.R;
 import com.example.administrator.newstitlexubotao.Uilt.Connectivity;
-import com.example.administrator.newstitlexubotao.Uilt.SildingFinishLayout;
-import com.example.administrator.newstitlexubotao.fragment.HomeFragment;
-import com.example.administrator.newstitlexubotao.fragment.NetworkInfo;
 
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
