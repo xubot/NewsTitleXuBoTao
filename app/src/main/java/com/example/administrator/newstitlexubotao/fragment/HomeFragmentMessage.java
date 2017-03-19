@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.administrator.newstitlexubotao.Adater.HomeMessageAdater;
 import com.example.administrator.newstitlexubotao.Bean.HomeMagessBean;
@@ -33,10 +35,11 @@ public class HomeFragmentMessage extends Fragment implements DataInterface<HomeM
     private int num=20;
     private String url;
     private boolean flag=false;
+    private View inflate;
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
-        View inflate = inflater.inflate(R.layout.home_fragment_message, null);
+        inflate = inflater.inflate(R.layout.home_fragment_message, null);
         initView(inflate);
         return inflate;
     }
@@ -83,6 +86,7 @@ public class HomeFragmentMessage extends Fragment implements DataInterface<HomeM
                 Intent intent = new Intent(getActivity(), WebViewActivity.class);
                 intent.putExtra("key", homeMagessBean.get(position).getUrl_3w());
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.keep);
             }
         });
         prl.onRefreshComplete();

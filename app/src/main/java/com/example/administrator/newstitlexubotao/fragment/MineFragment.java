@@ -78,7 +78,9 @@ public class MineFragment extends Fragment{
         imagearow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), LoginActivity.class));
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                //startActivity(new Intent(getActivity(), LoginActivity.class));
+                startActivityForResult(intent,1000);
             }
         });
 
@@ -128,13 +130,11 @@ public class MineFragment extends Fragment{
                         ImageLoader.getInstance().displayImage(figureurl_qq_2,imageweixin);
                         tv.setText(nickname);
                     }
-
                     @Override
                     public void onError(UiError uiError) {
 
                         Log.e(TAG,"登录失败"+uiError.toString());
                     }
-
                     @Override
                     public void onCancel() {
                         Log.e(TAG,"登录取消");

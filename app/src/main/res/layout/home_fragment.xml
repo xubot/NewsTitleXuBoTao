@@ -8,7 +8,7 @@
     <LinearLayout
         android:id="@+id/linearlayout"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:background="#f00">
         <ImageView
@@ -20,12 +20,14 @@
             android:src="@drawable/big_loadpic_empty_listpage"/>
         <EditText
             android:layout_width="0dp"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:background="@drawable/s"
+            android:layout_height="40dp"
+            android:background="@drawable/corners"
+            android:textSize="15dp"
             android:hint="请输入内容"/>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/linearTab"
         android:layout_width="match_parent"

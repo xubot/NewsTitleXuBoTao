@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         ThemeManager.registerThemeChangeListener(this);
         supportActionBar = getSupportActionBar();
         EventBus.getDefault().register(this);
-
         inflateView();
         //得到网络类
         flag = Connectivity.connectivity(this);
@@ -88,7 +87,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 addFragment(new NetworkInfo());
             }
         }
-
     }
     //布局控件
     public void inflateView() {
@@ -242,10 +240,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         }
         return super.onKeyDown(keyCode, event);
     }
-
-
-
-
     //得到minefragment的控件
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getEvents(EventbusData ev) {
