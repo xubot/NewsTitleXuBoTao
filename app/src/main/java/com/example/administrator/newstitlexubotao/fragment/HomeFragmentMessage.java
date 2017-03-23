@@ -2,6 +2,7 @@ package com.example.administrator.newstitlexubotao.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,9 +31,9 @@ public class HomeFragmentMessage extends Fragment implements DataInterface<HomeM
     private PullToRefreshListView prl;
     private int index=0;
     private int num=20;
-    private String url;
     private boolean flag=false;
     private View inflate;
+    private String encode;
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
@@ -46,9 +47,14 @@ public class HomeFragmentMessage extends Fragment implements DataInterface<HomeM
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = getArguments();
         String id = bundle.getString("id");
-        String encode = URLEncoder.encode(id);
-        url = "http://c.m.163.com/nc/article/headline/"+encode+"/"+index+"-"+num+".html";
+        encode = URLEncoder.encode(id);
+        String url = setUrl(index,num);
         RequestXUtils.utils(url, HomeMagessBean.class,this);
+    }
+
+    @NonNull
+    private String setUrl(int index,int num) {
+        return "http://c.m.163.com/nc/article/headline/"+encode+"/"+index+"-"+num+".html";
     }
 
     private void initView(View view) {
@@ -63,7 +69,7 @@ public class HomeFragmentMessage extends Fragment implements DataInterface<HomeM
         index=0;
         num=20;
         flag=true;
-        RequestXUtils.utils(url, HomeMagessBean.class,this);
+        RequestXUtils.utils(setUrl(index,num), HomeMagessBean.class,this);
     }
 
     @Override
@@ -71,7 +77,7 @@ public class HomeFragmentMessage extends Fragment implements DataInterface<HomeM
         index+=20;
         num+=20;
         flag=false;
-        RequestXUtils.utils(url, HomeMagessBean.class,this);
+        RequestXUtils.utils(setUrl(index,num), HomeMagessBean.class,this);
     }
     public void setdata(final List<HomeMagessBean> homeMagessBean) {
         Log.d("zzz", homeMagessBean.toString());

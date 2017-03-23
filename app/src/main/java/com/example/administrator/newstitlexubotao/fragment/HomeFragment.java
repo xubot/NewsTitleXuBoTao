@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import com.example.administrator.newstitlexubotao.Activity.ChannelActivity;
 import com.example.administrator.newstitlexubotao.Adater.HomeTitleAdater;
 import com.example.administrator.newstitlexubotao.R;
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,6 @@ import java.util.List;
 public class HomeFragment extends Fragment{
     private String[] titleArr=new String[]{"房产","足球","娱乐","体育","财经","科技","电影","汽车","笑话","游戏","时尚","情感","精选","电台","ABN","数码","移动","彩票","教育","论坛","旅游","手机","博客","社会","家居","暴雪游戏","亲子","CBA","消息","军事"};
     private String[] UrlID=new String[]{"T1348647909107","T1399700447917","T1348648517839","T1348649079062","T1348648756099","T1348649580692","T1348648650048","T1348654060988","T1350383429665","T1348654151579","T1348650593803","T1348650839000","T1370583240249","T1379038288239","T1348649145984","T1348649776727","T1351233117091","T1356600029035","T1348654225495","T1349837670307","T1348654204705","T1348649654285","T1349837698345","T1348648037603","T1348654105308","T1397016069906","T1397116135282","T1348649475931","T1371543208049","T1348648141035"};
-    private List<String> titleList=new ArrayList<>();
     private List<Fragment> fragmentList=new ArrayList<>();
     private TabLayout tabLayout;
     private ViewPager viewPage;
@@ -38,36 +36,6 @@ public class HomeFragment extends Fragment{
         //得到控件
         tabLayout = (TabLayout) inflate.findViewById(R.id.tablayout);
         viewPage = (ViewPager) inflate.findViewById(R.id.viewpager);
-        ImageView img= (ImageView) inflate.findViewById(R.id.img);
-
-        final SlidingMenu menu = new SlidingMenu(getActivity());
-        menu.setMode(SlidingMenu.LEFT);
-        // 设置触摸屏幕的模式
-        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-        menu.setShadowWidthRes(R.dimen.shadow_width);
-        // 设置滑动菜单视图的宽度
-        menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-        // 设置渐入渐出效果的值
-        menu.setFadeDegree(0.35f);
-        menu.attachToActivity(getActivity(), SlidingMenu.SLIDING_CONTENT);
-        //为侧滑菜单设置布局
-        menu.setMenu(R.layout.left_menu);
-
-        //点击弹出侧滑页
-        img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                menu.toggle();
-            }
-        });
-
-        titlbar = (ImageView) inflate.findViewById(R.id.titlbar);
-        titlbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(),ChannelActivity.class));
-            }
-        });
 
         //将fragment存入集合中
         inflateData();
@@ -80,8 +48,18 @@ public class HomeFragment extends Fragment{
         viewPage.setOffscreenPageLimit(3);
         //设置标题的显示模式
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+
+        //频道部分
+        titlbar = (ImageView) inflate.findViewById(R.id.titlbar);
+        titlbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),ChannelActivity.class));
+            }
+        });
         return inflate;
     }
+
     public void inflateData() {
         for (int i=0;i<titleArr.length;i++)
         {

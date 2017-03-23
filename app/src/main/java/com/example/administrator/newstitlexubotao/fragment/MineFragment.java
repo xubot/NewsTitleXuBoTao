@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.administrator.newstitlexubotao.Activity.CollectActivity;
 import com.example.administrator.newstitlexubotao.Activity.LoginActivity;
 import com.example.administrator.newstitlexubotao.Activity.MainActivity;
 import com.example.administrator.newstitlexubotao.R;
@@ -57,6 +58,13 @@ public class MineFragment extends Fragment{
     }
 
     private void initView(View inflate) {
+        LinearLayout linearStar= (LinearLayout) inflate.findViewById(R.id.linearStar);
+        linearStar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),CollectActivity.class));
+            }
+        });
         tv = (TextView) inflate.findViewById(R.id.tv);
         imageweixin = (ImageView) inflate.findViewById(R.id.imageweixin);
         //QQ登录

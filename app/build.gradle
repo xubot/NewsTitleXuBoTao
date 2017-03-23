@@ -31,21 +31,23 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:design:25.1.0'
-    compile 'org.xutils:xutils:3.3.40'
     compile files('libs/gson-2.2.4.jar')
-    compile 'fm.jiecao:jiecaovideoplayer:2.0'
     compile files('libs/universal-image-loader-1.9.3-with-sources.jar')
     compile project(':library')
     compile project(':PushSDK')
     compile files('libs/open_sdk_r5781.jar')
     compile files('libs/mta-sdk-1.6.2.jar')
-    compile 'org.greenrobot:eventbus:3.0.0'
     compile files('libs/MobCommons-2016.1201.1839.jar')
     compile files('libs/MobTools-2016.1201.1839.jar')
-    compile 'me.imid.swipebacklayout.lib:library:1.0.0'
     compile project(':channelManger')
     compile project(':slidingmenu_library')
+    compile files('libs/xUtils-2.6.14.jar')
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:25.1.0'
+    compile 'org.xutils:xutils:3.3.40'
+    compile 'fm.jiecao:jiecaovideoplayer:2.0'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'me.imid.swipebacklayout.lib:library:1.0.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
 }

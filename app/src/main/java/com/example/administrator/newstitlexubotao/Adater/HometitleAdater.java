@@ -14,18 +14,12 @@ import java.util.List;
 public class HomeTitleAdater extends FragmentPagerAdapter{
 
     //String[] titleArr
-    private final FragmentManager fragmentManager;
-    private final HomeFragment h_fragment;
     private final List<Fragment> fragmentList;
-    //private final List<String> titleList;
     private String[] titleArr;
 
-    public HomeTitleAdater(FragmentManager fragmentManager, HomeFragment h_fragment, List<Fragment> fragmentList, String[] titleArr) {
+    public HomeTitleAdater(FragmentManager fragmentManager, HomeFragment homeFragment, List<Fragment> fragmentList, String[] titleArr) {
         super(fragmentManager);
-        this.fragmentManager = fragmentManager;
-        this.h_fragment = h_fragment;
         this.fragmentList = fragmentList;
-        //this.titleList = titleList;
         this.titleArr=titleArr;
     }
     @Override

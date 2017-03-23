@@ -1,6 +1,5 @@
 package com.example.administrator.newstitlexubotao.Activity;
 
-import android.app.Application;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -10,15 +9,20 @@ import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.administrator.newstitlexubotao.Adater.MyAdataer;
+import com.example.administrator.newstitlexubotao.Bean.DownloadBean;
+import com.example.administrator.newstitlexubotao.Bean.Data;
 import com.example.administrator.newstitlexubotao.R;
 import com.example.administrator.newstitlexubotao.Uilt.ApplicationData;
 import com.example.administrator.newstitlexubotao.Uilt.Connectivity;
@@ -29,10 +33,15 @@ import com.example.administrator.newstitlexubotao.fragment.VideoFragment;
 import com.example.administrator.newstitlexubotao.fragment.HomeFragment;
 import com.example.administrator.newstitlexubotao.fragment.MineFragment;
 import com.example.administrator.newstitlexubotao.fragment.ConcernFragment;
+import com.google.gson.Gson;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +52,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     private List<LinearLayout> linearLayoutList=new ArrayList<>();
     private List<ImageView> imageViewList=new ArrayList<>();
     private List<TextView> textViewList=new ArrayList<>();
+    private List<Data> dataList=new ArrayList<>();
     private LinearLayout lmessage, llinkman, lspace, lmine;
     private TextView message,linkman,space,mine;
     private ImageView imagemessage, imagelinkman, imagespace, imagemine;
@@ -58,6 +68,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     private Boolean flag;
     private ActionBar supportActionBar;
     private RelativeLayout rlt;
+    private ListView lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,24 +81,79 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         inflateView();
         //得到网络类
         flag = Connectivity.connectivity(this);
-        if(ApplicationData.flag)
+        if(flag)
         {
-            if(flag)
-            {
-                //初次页面
-                if (homeFragment==null){
-                    homeFragment =new HomeFragment();
-                }
-                addFragment(homeFragment);
-                setBackground(0);
-                ApplicationData.flag=false;
+            //初次页面
+            if (homeFragment==null){
+                homeFragment =new HomeFragment();
             }
-            else
-            {
-                addFragment(new NetworkInfo());
-            }
+            addFragment(homeFragment);
+            setBackground(0);
         }
+        else
+        {
+                addFragment(new NetworkInfo());
+        }
+
+        final SlidingMenu menu = new SlidingMenu(this);
+        menu.setMode(SlidingMenu.LEFT);
+        // 设置触摸屏幕的模式
+        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+        menu.setShadowWidthRes(R.dimen.shadow_width);
+        // 设置滑动菜单视图的宽度
+        menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+        // 设置渐入渐出效果的值
+        menu.setFadeDegree(0.35f);
+        menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+        //为侧滑菜单设置布局
+        menu.setMenu(R.layout.left_menu);
+        lv = (ListView)findViewById(R.id.lv);
+        setGson();
     }
+
+    private void setGson() {
+        String path="http://mapp.qzone.qq.com/cgi-bin/mapp/mapp_subcatelist_qq?yyb_cateid=-10&categoryName=腾讯软件&pageNo=1&pageSize=20&type=app&platform=touch&network_type=unknown&resolution=412x732";
+        x.http().get(new RequestParams(path), new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                String substring = result.substring(0, result.length() - 1);
+                Gson gson = new Gson();
+                DownloadBean bean = gson.fromJson(substring,DownloadBean.class);
+                if(bean!=null)
+                {
+                    List<DownloadBean.Bean> app = bean.getApp();
+                    String message = bean.getMessage();
+                    Log.d("zzz", message);
+                    for(DownloadBean.Bean a: app)
+                    {
+                        String name = a.getName();
+                        String url = a.getUrl();
+                        Log.d("zzz", name + "     " + url);
+                        Data data = new Data(name, url);
+                        dataList.add(data);
+                        Log.d("zzz", dataList.toString());
+                    }
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+                Log.d("zzz", "onFinished");
+                lv.setAdapter(new MyAdataer(MainActivity.this,dataList));
+            }
+        });
+    }
+
     //布局控件
     public void inflateView() {
         //得到控件(LinearLayout的控件)

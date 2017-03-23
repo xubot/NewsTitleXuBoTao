@@ -9,17 +9,18 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 
+import org.xutils.DbManager;
 import org.xutils.x;
+
+import java.io.File;
 
 /**
  * Created by Administrator on 2017/2/16.
  */
 
 public class ApplicationData extends Application{
-    public   static  boolean flag;
     @Override
     public void onCreate() {
-        flag=true;
         //初始化xutils
         x.Ext.init(this);
         ImageLoaderConfiguration build = new ImageLoaderConfiguration.Builder(this).build();

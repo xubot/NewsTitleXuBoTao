@@ -1,6 +1,7 @@
 package com.example.administrator.newstitlexubotao.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -31,7 +32,7 @@ public class VideoFragmentMessage extends Fragment implements DataInterface<Vide
     private int num=1;
     private int number=10;
     private Boolean flag=false;
-    private String path;
+    private String pathid;
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
@@ -49,9 +50,14 @@ public class VideoFragmentMessage extends Fragment implements DataInterface<Vide
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         Bundle arguments = getArguments();
-        String pathid = arguments.getString("keyurl");
-        path = "http://c.3g.163.com/nc/video/list/"+pathid+"/n/"+num+"-"+number+".html";
+        pathid = arguments.getString("keyurl");
+        String path = getUrl(num,number);
         RequestXUtils.utils(path, VideoBean.class,this);
+    }
+
+    @NonNull
+    private String getUrl(int num,int number) {
+        return "http://c.3g.163.com/nc/video/list/"+ pathid +"/n/"+num+"-"+number+".html";
     }
 
     private void initView(View view) {
@@ -67,7 +73,7 @@ public class VideoFragmentMessage extends Fragment implements DataInterface<Vide
         num=1;
         number=10;
         flag=true;
-        RequestXUtils.utils(path, VideoBean.class,this);
+        RequestXUtils.utils(getUrl(num,number), VideoBean.class,this);
     }
 
     @Override
@@ -75,7 +81,7 @@ public class VideoFragmentMessage extends Fragment implements DataInterface<Vide
         num+=10;
         number+=10;
         flag=false;
-        RequestXUtils.utils(path, VideoBean.class,this);
+        RequestXUtils.utils(getUrl(num,number), VideoBean.class,this);
     }
 
     @Override
